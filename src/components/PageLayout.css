@@ -1,9 +1,9 @@
-.search-layout {
-    background-color: orange;
-    border: 2px;
-    border-color: brown;
+.page-layout {
+    background-color: black;
+    height: 100vh;
 }
 
-.page-layout {
-    background-color: green;
+.search-layout {
+    text-align: center;
+    color: white;
 }

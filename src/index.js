@@ -6,7 +6,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <div style={{backgroundColor: 'black', height: '100vh'}}>
+            <div>
                 <PageLayout />
             </div>
         );
