@@ -4,41 +4,35 @@ import TableRow from './TableRow';
 
 class InfoTable extends React.Component {
 
-    state = { coins: [], rows: [] }
+    state = { rows: [] }
 
-    getCoinList = async () => {
+    getTableRows = async () => {
         const response = await Axios.get('https://api.bittrex.com/api/v1.1/public/getcurrencies',
             {
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 }
             });
-        this.setState({ coins: response.data.result });
-        console.log(this.state.coins);
-        const rows = this.buildTableRows();
+        const rows = this.buildTableRows(response.data.result);
         this.setState({ rows });
     }
 
-    buildTableRows() {
-        const rows = this.state.coins.map((coin) => {
+    buildTableRows(coins) {
+        const rows = coins.map((coin) => {
             return (
-                <TableRow coin={coin}/>
+                <TableRow key={coin.Currency} coin={coin}/>
             );
         });
         return rows;
     }
 
     componentDidMount() {
-        this.getCoinList();
-    }
-
-    onformLoad = (event) => {
-        this.setState({ rows: this.buildTableRows});
+        this.getTableRows();
     }
 
     render() {
         return (
-            <table className="ui selectable inverted table" onLoad={this.onformLoad}>
+            <table className="ui selectable inverted table">
                 <thead>
                     <tr>
                         <th>Currency</th>
