@@ -1,6 +1,7 @@
 import './PageLayout.css';
 import React from 'react';
 import SearchBar from './SearchBar';
+import InfoTable from './InfoTable';
 
 class PageLayout extends React.Component {
 
@@ -16,6 +17,7 @@ class PageLayout extends React.Component {
                 <div className="search-layout"> 
                     Search Term: {this.state.term}
                     <SearchBar onSearch={this.onCommencingSearch}/>
+                    <InfoTable />
                 </div>
             </div>
         );
