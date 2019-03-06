@@ -1,18 +1,13 @@
 import React from 'react';
-import Axios from 'axios';
 import TableRow from './TableRow';
+import  bittrex from '../api/bittrex';
 
 class InfoTable extends React.Component {
 
     state = { rows: [] }
 
     getTableRows = async () => {
-        const response = await Axios.get('https://api.bittrex.com/api/v1.1/public/getcurrencies',
-            {
-                headers: {
-                    'Access-Control-Allow-Origin': '*'
-                }
-            });
+        const response = await bittrex.get('/getcurrencies');
         const rows = this.buildTableRows(response.data.result);
         this.setState({ rows });
     }
