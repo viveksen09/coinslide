@@ -14,8 +14,7 @@ class PageLayout extends React.Component {
     render() {
         return (
             <div className="page-layout">
-                <div className="search-layout"> 
-                    Search Term: {this.state.term}
+                <div className="search-layout">
                     <SearchBar onSearch={this.onCommencingSearch}/>
                     <InfoTable />
                 </div>

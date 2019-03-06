@@ -1,3 +1,5 @@
+import './InfoTable.css';
+
 import React from 'react';
 import TableRow from './TableRow';
 import  bittrex from '../api/bittrex';
@@ -27,7 +29,7 @@ class InfoTable extends React.Component {
 
     render() {
         return (
-            <table className="ui selectable inverted table">
+            <table className="ui selectable inverted table currency-table">
                 <thead>
                     <tr>
                         <th>Currency</th>
