@@ -4,21 +4,31 @@ import React from 'react';
 import TableRow from './TableRow';
 import  coingecko from '../api/coingecko';
 
+const infoTableConfig = {
+    light: {
+        table: 'ui selectable celled table'
+    },
+    dark: {
+        table: 'ui selectable inverted table'
+    }
+}
+
 class InfoTable extends React.Component {
 
-    state = { rows: [] }
+    state = { rows: [], mode: this.props.mode }
 
     getTableRows = async () => {
         const response = await coingecko.get('/coins');
+        //TODO: Remove the console log.
         console.log(response);
-        const rows = this.buildTableRows(response.data);
-        this.setState({ rows });
+        const rows = this.buildTableRows(response.data, this.props.mode);
+        this.setState({ rows, mode: this.props.mode });
     }
 
-    buildTableRows(coins) {
+    buildTableRows(coins, mode) {
         const rows = coins.map((coin) => {
             return (
-                <TableRow key={coin.id} coin={coin}/>
+                <TableRow key={coin.id} coin={coin} mode={mode}/>
             );
         });
         return rows;
@@ -28,9 +38,23 @@ class InfoTable extends React.Component {
         this.getTableRows();
     }
 
+    componentWillReceiveProps(props) {
+        if (this.state.mode !== props.mode) {
+            this.getTableRows();
+        }
+    }
+
+    getTableClassName(mode) {
+        if (mode === 'dark') {
+            return infoTableConfig.dark.table;
+        }
+        return infoTableConfig.light.table;
+    }
+
     render() {
+        const tableName = this.getTableClassName(this.props.mode);
         return (
-            <table className="ui selectable inverted table currency-table">
+            <table className={`${tableName} currency-table`}>
                 <thead>
                     <tr>
                         <th>Currency</th>

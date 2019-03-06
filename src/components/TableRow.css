@@ -1,3 +1,9 @@
-.table-row {
+.table-row.dark {
     background-color: black;
+    color: white;
+}
+
+.table-row.light {
+    background-color: white;
+    color: black;
 }

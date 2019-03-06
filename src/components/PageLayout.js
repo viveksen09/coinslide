@@ -6,19 +6,24 @@ import Footer from './Footer';
 
 class PageLayout extends React.Component {
 
-    state = {term: ''};
+    state = {term: '', mode: 'dark'};
 
     onCommencingSearch = (term) => {
         this.setState({term: term});
-    }
+    };
+
+    onModeChange = (mode) => {
+        this.setState({ mode });
+    };
 
     render() {
+        console.log('mode in parent', this.state.mode);
         return (
-            <div className="page-layout">
+            <div className={`page-layout ${this.state.mode}`}>
                 <div className="search-layout">
                     <SearchBar onSearch={this.onCommencingSearch}/>
-                    <InfoTable />
-                    <Footer />
+                    <InfoTable mode={this.state.mode}/>
+                    <Footer mode={this.state.mode} onModeChange={this.onModeChange}/>
                 </div>
             </div>
         );
