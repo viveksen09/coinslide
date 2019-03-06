@@ -2,22 +2,23 @@ import './InfoTable.css';
 
 import React from 'react';
 import TableRow from './TableRow';
-import  bittrex from '../api/bittrex';
+import  coingecko from '../api/coingecko';
 
 class InfoTable extends React.Component {
 
     state = { rows: [] }
 
     getTableRows = async () => {
-        const response = await bittrex.get('/getcurrencies');
-        const rows = this.buildTableRows(response.data.result);
+        const response = await coingecko.get('/coins');
+        console.log(response);
+        const rows = this.buildTableRows(response.data);
         this.setState({ rows });
     }
 
     buildTableRows(coins) {
         const rows = coins.map((coin) => {
             return (
-                <TableRow key={coin.Currency} coin={coin}/>
+                <TableRow key={coin.id} coin={coin}/>
             );
         });
         return rows;
@@ -34,8 +35,12 @@ class InfoTable extends React.Component {
                     <tr>
                         <th>Currency</th>
                         <th>Symbol</th>
-                        <th>Active</th>
-                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Cap</th>
+                        <th>Volume</th>
+                        <th>24Hr Low</th>
+                        <th>24Hr High</th>
+                        <th>24Hr Change</th>
                     </tr>
                 </thead>
                     <tbody>
