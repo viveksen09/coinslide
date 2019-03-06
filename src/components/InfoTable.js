@@ -34,6 +34,7 @@ class InfoTable extends React.Component {
                 <thead>
                     <tr>
                         <th>Currency</th>
+                        <th></th>
                         <th>Symbol</th>
                         <th>Price</th>
                         <th>Cap</th>
