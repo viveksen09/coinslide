@@ -1,5 +1,6 @@
 .mode-button {
     float: right;
+    margin-right: 10px;
 }
 .light {
     color: black;
