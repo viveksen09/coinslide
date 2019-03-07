@@ -15,14 +15,14 @@ const infoTableConfig = {
 
 class InfoTable extends React.Component {
 
-    state = { rows: [], mode: this.props.mode }
+    state = { response: null, rows: [], mode: this.props.mode }
 
     getTableRows = async () => {
         const response = await coingecko.get('/coins');
         //TODO: Remove the console log.
         console.log(response);
         const rows = this.buildTableRows(response.data, this.props.mode);
-        this.setState({ rows, mode: this.props.mode });
+        this.setState({ response, rows, mode: this.props.mode });
     }
 
     buildTableRows(coins, mode) {
@@ -40,7 +40,8 @@ class InfoTable extends React.Component {
 
     componentWillReceiveProps(props) {
         if (this.state.mode !== props.mode) {
-            this.getTableRows();
+            const rows = this.buildTableRows(this.state.response.data, props.mode);
+            this.setState({ rows, mode: props.mode });
         }
     }
 
