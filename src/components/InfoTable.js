@@ -2,7 +2,7 @@ import './InfoTable.css';
 
 import React from 'react';
 import TableRow from './TableRow';
-import  coingecko from '../api/coingecko';
+import coingecko from '../api/coingecko';
 
 const infoTableConfig = {
     light: {
@@ -28,10 +28,24 @@ class InfoTable extends React.Component {
     buildTableRows(coins, mode) {
         const rows = coins.map((coin) => {
             return (
-                <TableRow key={coin.id} coin={coin} mode={mode}/>
+                <TableRow key={coin.id} coin={coin} mode={mode} />
             );
         });
         return rows;
+    }
+
+    getFilteredTableRows(term) {
+        const newRows = [];
+        const filteredRow = this.state.response.data.find((row) => {
+            return (
+                row.name.toLowerCase() === term.toLowerCase() || 
+                row.symbol.toLowerCase() === term.toLowerCase()
+            );
+        });
+        if (filteredRow) {
+            newRows.push(filteredRow);
+        }
+        return newRows;
     }
 
     componentDidMount() {
@@ -39,7 +53,18 @@ class InfoTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        if (this.state.mode !== props.mode) {
+        //If there is a term, search first
+        if (props.term) {
+            const filteredRows = this.getFilteredTableRows(props.term);
+            console.log(filteredRows);
+            if (filteredRows.length > 0) {
+                console.log('in');
+                const rows = this.buildTableRows(filteredRows, props.mode);
+                this.setState({ rows });
+            }
+        }
+
+        else if (this.state.mode !== props.mode) {
             const rows = this.buildTableRows(this.state.response.data, props.mode);
             this.setState({ rows, mode: props.mode });
         }
@@ -69,9 +94,9 @@ class InfoTable extends React.Component {
                         <th>24Hr Change</th>
                     </tr>
                 </thead>
-                    <tbody>
-                        {this.state.rows}
-                    </tbody>
+                <tbody>
+                    {this.state.rows}
+                </tbody>
             </table>
         );
     }
