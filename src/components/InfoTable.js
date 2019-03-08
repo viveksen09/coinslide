@@ -53,18 +53,13 @@ class InfoTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        //If there is a term, search first
         if (props.term) {
             const filteredRows = this.getFilteredTableRows(props.term);
-            console.log(filteredRows);
             if (filteredRows.length > 0) {
-                console.log('in');
                 const rows = this.buildTableRows(filteredRows, props.mode);
                 this.setState({ rows });
             }
-        }
-
-        else if (this.state.mode !== props.mode) {
+        } else if (this.state.mode !== props.mode) {
             const rows = this.buildTableRows(this.state.response.data, props.mode);
             this.setState({ rows, mode: props.mode });
         }
