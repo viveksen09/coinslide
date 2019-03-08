@@ -1,3 +1,5 @@
+This is my personal project for building a crypto currency price watching web site.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
