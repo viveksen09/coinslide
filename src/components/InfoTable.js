@@ -1,8 +1,6 @@
 import './InfoTable.css';
 
 import React from 'react';
-import TableRow from './TableRow';
-import  coingecko from '../api/coingecko';
 
 const infoTableConfig = {
     light: {
@@ -17,39 +15,15 @@ class InfoTable extends React.Component {
 
     state = { response: null, rows: [], mode: this.props.mode }
 
-    getTableRows = async () => {
-        const response = await coingecko.get('/coins');
-        //TODO: Remove the console log.
-        console.log(response);
-        const rows = this.buildTableRows(response.data, this.props.mode);
-        this.setState({ response, rows, mode: this.props.mode });
-    }
-
-    buildTableRows(coins, mode) {
-        const rows = coins.map((coin) => {
-            return (
-                <TableRow key={coin.id} coin={coin} mode={mode}/>
-            );
-        });
-        return rows;
-    }
-
-    componentDidMount() {
-        this.getTableRows();
-    }
-
-    componentWillReceiveProps(props) {
-        if (this.state.mode !== props.mode) {
-            const rows = this.buildTableRows(this.state.response.data, props.mode);
-            this.setState({ rows, mode: props.mode });
-        }
-    }
-
     getTableClassName(mode) {
         if (mode === 'dark') {
             return infoTableConfig.dark.table;
         }
         return infoTableConfig.light.table;
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({ mode: props.mode, rows: props.rows });
     }
 
     render() {
@@ -62,7 +36,7 @@ class InfoTable extends React.Component {
                         <th></th>
                         <th>Symbol</th>
                         <th>Price</th>
-                        <th>Cap</th>
+                        <th>Market Cap</th>
                         <th>Volume</th>
                         <th>24Hr Low</th>
                         <th>24Hr High</th>
