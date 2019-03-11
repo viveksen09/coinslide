@@ -2,7 +2,6 @@ import './TableRow.css';
 import React from 'react';
 
 const TableRow = ({ coin, mode }) => {
-    console.log('mode in table row:', mode);
     return (
         <tr className={`table-row ${mode}`}>
             <td>{coin.name}</td>
