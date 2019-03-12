@@ -65,7 +65,7 @@ class PageLayout extends React.Component {
             <div className={`page-layout ${this.state.mode}`}>
                 <div className="search-layout">
                     <SearchBar onSearch={this.onCommencingSearch}/>
-                    <InfoTable mode={this.state.mode} rows={this.state.rows} />
+                    <InfoTable mode={this.state.mode} rows={this.state.rows} response={this.state.response} />
                     <Footer mode={this.state.mode} onModeChange={this.onModeChange}/>
                 </div>
             </div>

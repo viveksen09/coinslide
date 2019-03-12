@@ -13,7 +13,7 @@ const infoTableConfig = {
 
 class InfoTable extends React.Component {
 
-    state = { response: null, rows: [], mode: this.props.mode }
+    state = { allRows: [], rows: [], mode: this.props.mode }
 
     getTableClassName(mode) {
         if (mode === 'dark') {
@@ -23,10 +23,19 @@ class InfoTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        if (this.state.allRows.length === 0) {
+            this.setState({ allRows: this.props.rows });
+        }
         this.setState({ mode: props.mode, rows: props.rows });
     }
 
     render() {
+        
+        var rowsToRender = this.state.allRows;
+        if (this.props.rows.length > 0) {
+            rowsToRender = this.state.rows;
+        }
+        
         const tableName = this.getTableClassName(this.props.mode);
         return (
             <table className={`${tableName} currency-table`}>
@@ -44,7 +53,7 @@ class InfoTable extends React.Component {
                     </tr>
                 </thead>
                     <tbody>
-                        {this.state.rows}
+                        {rowsToRender}
                     </tbody>
             </table>
         );
