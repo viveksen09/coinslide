@@ -4,11 +4,11 @@ import React from 'react';
 const modeButtonConfig = {
     light :{
         mode: "light",
-        text: "Lights off"
+        text: "Night"
     },
     dark: {
         mode: "dark",
-        text: "Lights on"
+        text: "Day"
     }
 }
 
@@ -38,16 +38,14 @@ class Footer extends React.Component {
 
     render() {
         return (
-            <div className="footer" style={{ backgroundColor: 'black', paddingBottom: '10px' }}>
+            <div className="footer" style={{ backgroundColor: 'black' }}>
                 Powered by
                 <a href="https://www.coingecko.com"> coingecko </a>
                 apis
-                <button
-                    className={`mode-button ${this.state.mode}`}
-                    onClick={this.onButtonClick}
-                >
-                    {this.state.modeButtonText}
-                </button>
+                <div className="ui slider checkbox mode-button" >
+                    <input type="checkbox" name="newsletter" onChange={this.onButtonClick} />
+                    <label style={{ color: 'white' }}>{this.state.modeButtonText}</label>
+                </div>
             </div>
         );
     }
