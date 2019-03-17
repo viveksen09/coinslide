@@ -14,7 +14,7 @@ const infoTableConfig = {
 
 class InfoTable extends React.Component {
 
-    state = { response: null, rows: [], mode: this.props.mode }
+    state = { allRows: [], allLightRows: [], rows: [], mode: this.props.mode, firstRendering: true }
 
     getTableClassName(mode) {
         if (mode === 'dark') {
@@ -24,8 +24,12 @@ class InfoTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ mode: props.mode, rows: props.rows });
+        if (this.state.allRows.length === 0) {
+            this.setState({ allRows: this.props.rows, allLightRows: this.props.lightRows });
+        }
+        this.setState({ mode: props.mode, rows: props.rows, firstRendering: false });
     }
+
 
     getLoadingJsxContent(table) {
         return (
@@ -50,7 +54,7 @@ class InfoTable extends React.Component {
         );
     }
 
-    getLoadedJsxContent(table) {
+    getLoadedJsxContent(table, rowsToRender) {
         return (
             <div>
                 <table className={`${table} currency-table`}>
@@ -68,23 +72,31 @@ class InfoTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.rows}
+                        {rowsToRender}
                     </tbody>
                 </table>
             </div>
         );
     }
 
-    renderContent(table) {
-        if (this.state.rows.length === 0) {
+    renderContent(table, rowsToRender) {
+        if (this.state.firstRendering) {
             return this.getLoadingJsxContent(table);
         }
-        return this.getLoadedJsxContent(table);
+        return this.getLoadedJsxContent(table, rowsToRender);
     }
 
     render() {
+        var rowsToRender = this.state.allRows;
+        if (this.props.mode === 'light') {
+            rowsToRender = this.state.allLightRows;
+        }
+        if (this.props.rows.length > 0) {
+            rowsToRender = this.state.rows;
+        }
+
         const tableName = this.getTableClassName(this.props.mode);
-        return this.renderContent(tableName);
+        return this.renderContent(tableName, rowsToRender);
     }
 }
 
