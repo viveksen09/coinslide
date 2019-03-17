@@ -9,7 +9,7 @@ import  coingecko from '../api/coingecko';
 
 class PageLayout extends React.Component {
 
-    state = {term: '', mode: 'dark', response: null, rows: [], filteredRows: []};
+    state = {term: '', mode: 'dark', response: null, rows: [], filteredRows: [], lightRows: []};
 
     filterRows = (term) => {
         const newRows = [];
@@ -33,10 +33,8 @@ class PageLayout extends React.Component {
     };
 
     onModeChange = (mode) => {
-        if (this.state.filteredRows.length > 0) {
-            const rows = this.buildTableRows(this.state.filteredRows, mode);
-            this.setState({ rows, mode });
-        }
+        const rows = this.buildTableRows(this.state.filteredRows, mode);
+        this.setState({ rows, mode });
     };
 
     getTableRows = async () => {
@@ -44,7 +42,8 @@ class PageLayout extends React.Component {
         //TODO: Remove the console log.
         console.log(response);
         const rows = this.buildTableRows(response.data, this.state.mode);
-        this.setState({ response, rows, filteredRows: response.data });
+        const lightRows = this.buildTableRows(response.data, 'light');
+        this.setState({ response, rows, lightRows, filteredRows: response.data });
     }
 
     buildTableRows(coins, mode) {
@@ -65,7 +64,7 @@ class PageLayout extends React.Component {
             <div className={`page-layout ${this.state.mode}`}>
                 <div className="search-layout">
                     <SearchBar onSearch={this.onCommencingSearch}/>
-                    <InfoTable mode={this.state.mode} rows={this.state.rows} response={this.state.response} />
+                    <InfoTable mode={this.state.mode} rows={this.state.rows} lightRows={this.state.lightRows} response={this.state.response} />
                     <Footer mode={this.state.mode} onModeChange={this.onModeChange}/>
                 </div>
             </div>

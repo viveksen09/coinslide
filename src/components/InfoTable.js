@@ -13,7 +13,7 @@ const infoTableConfig = {
 
 class InfoTable extends React.Component {
 
-    state = { allRows: [], rows: [], mode: this.props.mode }
+    state = { allRows: [], allLightRows: [], rows: [], mode: this.props.mode }
 
     getTableClassName(mode) {
         if (mode === 'dark') {
@@ -24,7 +24,7 @@ class InfoTable extends React.Component {
 
     componentWillReceiveProps(props) {
         if (this.state.allRows.length === 0) {
-            this.setState({ allRows: this.props.rows });
+            this.setState({ allRows: this.props.rows, allLightRows: this.props.lightRows });
         }
         this.setState({ mode: props.mode, rows: props.rows });
     }
@@ -32,6 +32,9 @@ class InfoTable extends React.Component {
     render() {
         
         var rowsToRender = this.state.allRows;
+        if (this.props.mode === 'light') {
+            rowsToRender = this.state.allLightRows;
+        }
         if (this.props.rows.length > 0) {
             rowsToRender = this.state.rows;
         }
