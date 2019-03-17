@@ -1,13 +1,15 @@
+.footer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .mode-button {
     float: right;
     margin-right: 10px;
-}
-.light {
-    color: black;
-    background-color: white;
+    color: white !important;
+    padding-right: 5px;
 }
 
-.dark {
-    color: white;
-    background-color: rgb(56, 56, 53);
+.ui.slider.checkbox input:checked ~ label {
+    color:white !important;
 }
