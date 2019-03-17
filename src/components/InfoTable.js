@@ -1,6 +1,7 @@
 import './InfoTable.css';
 
 import React from 'react';
+import Loader from './Loader';
 
 const infoTableConfig = {
     light: {
@@ -13,7 +14,7 @@ const infoTableConfig = {
 
 class InfoTable extends React.Component {
 
-    state = { allRows: [], allLightRows: [], rows: [], mode: this.props.mode }
+    state = { allRows: [], allLightRows: [], rows: [], mode: this.props.mode, firstRendering: true }
 
     getTableClassName(mode) {
         if (mode === 'dark') {
@@ -26,11 +27,66 @@ class InfoTable extends React.Component {
         if (this.state.allRows.length === 0) {
             this.setState({ allRows: this.props.rows, allLightRows: this.props.lightRows });
         }
-        this.setState({ mode: props.mode, rows: props.rows });
+        this.setState({ mode: props.mode, rows: props.rows, firstRendering: false });
+    }
+
+
+    getLoadingJsxContent(table) {
+        return (
+            <div>
+                <table className={`${table} currency-table`}>
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th></th>
+                            <th>Symbol</th>
+                            <th>Price</th>
+                            <th>Market Cap</th>
+                            <th>Volume</th>
+                            <th>24Hr Low</th>
+                            <th>24Hr High</th>
+                            <th>24Hr Change</th>
+                        </tr>
+                    </thead>
+                </table>
+                <Loader message="gathering data.." />
+            </div>
+        );
+    }
+
+    getLoadedJsxContent(table, rowsToRender) {
+        return (
+            <div>
+                <table className={`${table} currency-table`}>
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th></th>
+                            <th>Symbol</th>
+                            <th>Price</th>
+                            <th>Market Cap</th>
+                            <th>Volume</th>
+                            <th>24Hr Low</th>
+                            <th>24Hr High</th>
+                            <th>24Hr Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rowsToRender}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+
+    renderContent(table, rowsToRender) {
+        if (this.state.firstRendering) {
+            return this.getLoadingJsxContent(table);
+        }
+        return this.getLoadedJsxContent(table, rowsToRender);
     }
 
     render() {
-        
         var rowsToRender = this.state.allRows;
         if (this.props.mode === 'light') {
             rowsToRender = this.state.allLightRows;
@@ -38,28 +94,9 @@ class InfoTable extends React.Component {
         if (this.props.rows.length > 0) {
             rowsToRender = this.state.rows;
         }
-        
+
         const tableName = this.getTableClassName(this.props.mode);
-        return (
-            <table className={`${tableName} currency-table`}>
-                <thead>
-                    <tr>
-                        <th>Currency</th>
-                        <th></th>
-                        <th>Symbol</th>
-                        <th>Price</th>
-                        <th>Market Cap</th>
-                        <th>Volume</th>
-                        <th>24Hr Low</th>
-                        <th>24Hr High</th>
-                        <th>24Hr Change</th>
-                    </tr>
-                </thead>
-                    <tbody>
-                        {rowsToRender}
-                    </tbody>
-            </table>
-        );
+        return this.renderContent(tableName, rowsToRender);
     }
 }
 
