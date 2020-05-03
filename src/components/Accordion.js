@@ -23,7 +23,7 @@ class Accordion extends React.Component {
                             Settings
                         </div>
                         <div className={`${this.state.selection} content`}>
-                            Pla pla pla
+                            All the settings go here!
                         </div>
                     </div>
                 </div>

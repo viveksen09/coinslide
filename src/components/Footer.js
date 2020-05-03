@@ -16,8 +16,8 @@ class Footer extends React.Component {
 
     state = { modeButtonText: modeButtonConfig.dark.text, mode: this.props.mode }
 
-    onButtonClick = () => {
-        if (this.state.modeButtonText === modeButtonConfig.dark.text) {
+    onButtonClick = (event, currentMode) => {
+        if (currentMode === 'dark') {
             this.setState(
                 { 
                     modeButtonText: modeButtonConfig.light.text,
@@ -38,12 +38,12 @@ class Footer extends React.Component {
 
     render() {
         return (
-            <div className="footer" style={{ backgroundColor: 'black' }}>
+            <div className={`footer-${this.state.mode}`}>
                 Powered by
                 <a href="https://www.coingecko.com"> coingecko </a>
                 apis
                 <div className="ui slider checkbox mode-button" >
-                    <input type="checkbox" name="newsletter" onChange={this.onButtonClick} />
+                    <input type="checkbox" name="newsletter" onChange={(e) => this.onButtonClick(e, this.state.mode)}  />
                     <label style={{ color: 'white' }}>{this.state.modeButtonText}</label>
                 </div>
             </div>
