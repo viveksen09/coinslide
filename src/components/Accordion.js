@@ -1,8 +1,9 @@
 import React from 'react';
+import CurrencySelector from './CurrenySelector';
 
 class Accordion extends React.Component {
 
-    state = { selection: '' };
+    state = { selection: '' , currencies: [] };
 
     onAccordionClick = (event) => {
         if (this.state.selection === '') {
@@ -10,8 +11,13 @@ class Accordion extends React.Component {
         } else {
             this.setState({ selection: '' });
         }
-        
     };
+
+    componentWillReceiveProps(props) {
+        if (this.state.currencies.length === 0 && props.response != null ) {
+            this.setState({ currencies: props.response.data[0].market_data.current_price });
+        }
+    }
 
     render() {
         return(
@@ -19,11 +25,11 @@ class Accordion extends React.Component {
                 <div className="ui inverted segment">
                     <div className="ui inverted accordion">
                         <div className={`${this.state.selection} title`} onClick={(e) => {this.onAccordionClick(e)}} >
+                            <i className="cogs icon"></i>
                             <i className="dropdown icon"></i>
-                            Settings
                         </div>
                         <div className={`${this.state.selection} content`}>
-                            All the settings go here!
+                            <CurrencySelector currencies={this.state.currencies} />
                         </div>
                     </div>
                 </div>

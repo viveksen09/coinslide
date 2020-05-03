@@ -67,7 +67,7 @@ class PageLayout extends React.Component {
                     <SearchBar onSearch={this.onCommencingSearch}/>
                 </div>
                 <div className="accordion-layout">
-                    <Accordion />
+                    <Accordion response={this.state.response} />
                 </div>
                 <InfoTable mode={this.state.mode} rows={this.state.rows} lightRows={this.state.lightRows} response={this.state.response} />
                 <Footer mode={this.state.mode} onModeChange={this.onModeChange}/>
