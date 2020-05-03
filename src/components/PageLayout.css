@@ -1,4 +1,6 @@
 .page-layout {
+    color: white;
+    text-align: center;
     background-color: black;
     height: 100vh;
 }
@@ -7,4 +9,9 @@
     text-align: center;
     color: white;
     background-color: black;
+}
+
+.accordion-layout {
+    text-align: right;
+    padding-top: 100px;
 }

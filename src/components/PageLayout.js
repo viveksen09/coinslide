@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import InfoTable from './InfoTable';
 import Footer from './Footer';
 import TableRow from './TableRow';
+import Accordion from './Accordion';
 
 import  coingecko from '../api/coingecko';
 
@@ -64,9 +65,12 @@ class PageLayout extends React.Component {
             <div className={`page-layout ${this.state.mode}`}>
                 <div className="search-layout">
                     <SearchBar onSearch={this.onCommencingSearch}/>
-                    <InfoTable mode={this.state.mode} rows={this.state.rows} lightRows={this.state.lightRows} response={this.state.response} />
-                    <Footer mode={this.state.mode} onModeChange={this.onModeChange}/>
                 </div>
+                <div className="accordion-layout">
+                    <Accordion />
+                </div>
+                <InfoTable mode={this.state.mode} rows={this.state.rows} lightRows={this.state.lightRows} response={this.state.response} />
+                <Footer mode={this.state.mode} onModeChange={this.onModeChange}/>
             </div>
         );
     };
