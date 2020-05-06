@@ -5,6 +5,10 @@ class Accordion extends React.Component {
 
     state = { selection: '' , currencies: [] };
 
+    onCurrencySelected = (currency) => {
+        this.props.onCurrencySelect(currency);
+    }
+
     onAccordionClick = (event) => {
         if (this.state.selection === '') {
             this.setState({ selection: 'active' });
@@ -29,7 +33,7 @@ class Accordion extends React.Component {
                             <i className="dropdown icon"></i>
                         </div>
                         <div className={`${this.state.selection} content`}>
-                            <CurrencySelector currencies={this.state.currencies} />
+                            <CurrencySelector currencies={this.state.currencies} onCurrencySelected={this.onCurrencySelected} />
                         </div>
                     </div>
                 </div>
