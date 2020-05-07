@@ -43,9 +43,15 @@ class PageLayout extends React.Component {
 
     onCurrencySelected = (currency) => {
         if (currency !== this.state.currency) {
-            const rows = this.buildTableRows(this.state.response.data, this.state.mode, currency);
-            const lightRows = this.buildTableRows(this.state.response.data, 'light', currency);
-            this.setState({ rows, lightRows, currency });
+            if (this.state.term !== '') {
+                const rows = this.buildTableRows(this.state.filteredRows, this.state.mode, currency);
+                const lightRows = this.buildTableRows(this.state.filteredRows, 'light', currency);
+                this.setState({ rows, lightRows, currency });
+            } else {
+                const rows = this.buildTableRows(this.state.response.data, this.state.mode, currency);
+                const lightRows = this.buildTableRows(this.state.response.data, 'light', currency);
+                this.setState({ rows, lightRows, currency });
+            }
         }
     }
 
