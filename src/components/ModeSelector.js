@@ -17,7 +17,7 @@ class ModeSelector extends React.Component {
     render() {
         return(
             <div>
-                <div class="ui toggle checkbox">
+                <div className="ui toggle checkbox">
                     <input type="checkbox" name="public" onChange={(e) => this.onModeSelected(e, this.state.mode)}/>
                     <label style={{ color: 'gold'}}>Day</label>
                 </div>

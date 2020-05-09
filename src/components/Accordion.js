@@ -8,7 +8,6 @@ class Accordion extends React.Component {
     state = { selection: '' , currencies: [], mode: this.props.mode };
 
     onModeChanged = (mode) => {
-        console.log("Current mode : " + mode);
         this.setState({ mode });
         this.props.onModeChange(mode);
     }

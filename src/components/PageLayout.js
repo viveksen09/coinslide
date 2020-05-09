@@ -87,7 +87,7 @@ class PageLayout extends React.Component {
                     <Accordion response={this.state.response} mode={this.state.mode} onCurrencySelect={this.onCurrencySelected} onModeChange={this.onModeChange} />
                 </div>
                 <InfoTable mode={this.state.mode} rows={this.state.rows} lightRows={this.state.lightRows} response={this.state.response} />
-                <Footer mode={this.state.mode} onModeChange={this.onModeChange}/>
+                <Footer />
             </div>
         );
     };
