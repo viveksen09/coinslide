@@ -34,7 +34,7 @@ class Accordion extends React.Component {
     render() {
         return(
             <div>
-                <div className="ui inverted segment">
+                {/* <div className="ui inverted segment"> */}
                     <div className="ui inverted accordion">
                         <div className={`${this.state.selection} title`} onClick={(e) => {this.onAccordionClick(e)}} >
                             <i className="cogs icon"></i>
@@ -57,7 +57,7 @@ class Accordion extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                {/* </div> */}
             </div>
         );
     }
