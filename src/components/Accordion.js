@@ -5,7 +5,13 @@ import ModeSelector from './ModeSelector';
 
 class Accordion extends React.Component {
 
-    state = { selection: '' , currencies: [] };
+    state = { selection: '' , currencies: [], mode: this.props.mode };
+
+    onModeChanged = (mode) => {
+        console.log("Current mode : " + mode);
+        this.setState({ mode });
+        this.props.onModeChange(mode);
+    }
 
     onCurrencySelected = (currency) => {
         this.props.onCurrencySelect(currency);
@@ -35,14 +41,14 @@ class Accordion extends React.Component {
                             <i className="dropdown icon"></i>
                         </div>
                         <div className={`${this.state.selection} content`}>
-                            <div class="ui six column grid">
+                            <div className="ui six column grid">
                                 <div className="row">
                                     <div className="column blank"></div>
                                     <div className="column blank"></div>
                                     <div className="column blank"></div>
                                     <div className="column blank"></div>
                                     <div className="column mode">
-                                        <ModeSelector />
+                                        <ModeSelector mode={this.state.mode} onModeChanged={this.onModeChanged} />
                                     </div>
                                     <div className="column">
                                         <CurrencySelector currencies={this.state.currencies} onCurrencySelected={this.onCurrencySelected} />
