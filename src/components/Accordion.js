@@ -1,5 +1,7 @@
+import './Accordion.css';
 import React from 'react';
 import CurrencySelector from './CurrenySelector';
+import ModeSelector from './ModeSelector';
 
 class Accordion extends React.Component {
 
@@ -33,7 +35,20 @@ class Accordion extends React.Component {
                             <i className="dropdown icon"></i>
                         </div>
                         <div className={`${this.state.selection} content`}>
-                            <CurrencySelector currencies={this.state.currencies} onCurrencySelected={this.onCurrencySelected} />
+                            <div class="ui six column grid">
+                                <div className="row">
+                                    <div className="column blank"></div>
+                                    <div className="column blank"></div>
+                                    <div className="column blank"></div>
+                                    <div className="column blank"></div>
+                                    <div className="column mode">
+                                        <ModeSelector />
+                                    </div>
+                                    <div className="column">
+                                        <CurrencySelector currencies={this.state.currencies} onCurrencySelected={this.onCurrencySelected} />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
