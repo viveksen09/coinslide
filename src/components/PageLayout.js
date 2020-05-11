@@ -14,15 +14,12 @@ class PageLayout extends React.Component {
 
     filterRows = (term) => {
         const newRows = [];
-        const filteredRow = this.state.response.data.find((row) => {
-            return (
-                row.name.toLowerCase() === term.toLowerCase() ||
-                row.symbol.toLowerCase() === term.toLowerCase()
-            );
+        this.state.response.data.map((row) => {
+            if (row.symbol.toLowerCase().includes(term.toLowerCase()) || row.name.toLowerCase().includes(term.toLowerCase())) {
+                newRows.push(row);
+            }
+            return newRows;
         });
-        if (filteredRow) {
-            newRows.push(filteredRow);
-        }
         if (newRows.length === 0) {
             return this.state.response.data;
         }
