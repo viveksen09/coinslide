@@ -1,20 +1,7 @@
-.footer-light{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: black;
-    background-color: white;
-}
-
-.footer-dark{
+.footer{
     padding-top: 10px;
     padding-bottom: 10px;
     color: white;
     background-color: black;
-}
-
-.mode-button {
-    float: right;
-    margin-right: 10px;
-    color: white !important;
-    padding-right: 5px;
+    justify-content: center;
 }

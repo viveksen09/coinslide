@@ -23,7 +23,7 @@ class CurrencySelector extends React.Component {
     render() {
         return (
             <div>
-                <label>Select Currency:  </label>
+                <label style={{color: 'white'}}>Select currency:  </label>
                 <select className="ui dropdown" onChange={(e) => this.onCurrecySelect(e)}>
                     <option value="usd">USD</option>
                     {this.state.currencyList}

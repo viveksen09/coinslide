@@ -1,9 +1,16 @@
+import './Accordion.css';
 import React from 'react';
 import CurrencySelector from './CurrenySelector';
+import ModeSelector from './ModeSelector';
 
 class Accordion extends React.Component {
 
-    state = { selection: '' , currencies: [] };
+    state = { selection: '' , currencies: [], mode: this.props.mode };
+
+    onModeChanged = (mode) => {
+        this.setState({ mode });
+        this.props.onModeChange(mode);
+    }
 
     onCurrencySelected = (currency) => {
         this.props.onCurrencySelect(currency);
@@ -26,17 +33,30 @@ class Accordion extends React.Component {
     render() {
         return(
             <div>
-                <div className="ui inverted segment">
+                {/* <div className="ui inverted segment"> */}
                     <div className="ui inverted accordion">
                         <div className={`${this.state.selection} title`} onClick={(e) => {this.onAccordionClick(e)}} >
                             <i className="cogs icon"></i>
                             <i className="dropdown icon"></i>
                         </div>
                         <div className={`${this.state.selection} content`}>
-                            <CurrencySelector currencies={this.state.currencies} onCurrencySelected={this.onCurrencySelected} />
+                            <div className="ui six column grid">
+                                <div className="row">
+                                    <div className="column blank"></div>
+                                    <div className="column blank"></div>
+                                    <div className="column blank"></div>
+                                    <div className="column blank"></div>
+                                    <div className="column mode">
+                                        <ModeSelector mode={this.state.mode} onModeChanged={this.onModeChanged} />
+                                    </div>
+                                    <div className="column">
+                                        <CurrencySelector currencies={this.state.currencies} onCurrencySelected={this.onCurrencySelected} />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {/* </div> */}
             </div>
         );
     }

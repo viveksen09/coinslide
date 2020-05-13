@@ -14,15 +14,12 @@ class PageLayout extends React.Component {
 
     filterRows = (term) => {
         const newRows = [];
-        const filteredRow = this.state.response.data.find((row) => {
-            return (
-                row.name.toLowerCase() === term.toLowerCase() ||
-                row.symbol.toLowerCase() === term.toLowerCase()
-            );
+        this.state.response.data.map((row) => {
+            if (row.symbol.toLowerCase().includes(term.toLowerCase()) || row.name.toLowerCase().includes(term.toLowerCase())) {
+                newRows.push(row);
+            }
+            return newRows;
         });
-        if (filteredRow) {
-            newRows.push(filteredRow);
-        }
         if (newRows.length === 0) {
             return this.state.response.data;
         }
@@ -84,10 +81,10 @@ class PageLayout extends React.Component {
                     <SearchBar onSearch={this.onCommencingSearch}/>
                 </div>
                 <div className="accordion-layout">
-                    <Accordion response={this.state.response} onCurrencySelect={this.onCurrencySelected}/>
+                    <Accordion response={this.state.response} mode={this.state.mode} onCurrencySelect={this.onCurrencySelected} onModeChange={this.onModeChange} />
                 </div>
                 <InfoTable mode={this.state.mode} rows={this.state.rows} lightRows={this.state.lightRows} response={this.state.response} />
-                <Footer mode={this.state.mode} onModeChange={this.onModeChange}/>
+                <Footer />
             </div>
         );
     };
