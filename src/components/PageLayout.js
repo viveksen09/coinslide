@@ -35,6 +35,7 @@ class PageLayout extends React.Component {
 
     onModeChange = (mode) => {
         const rows = this.buildTableRows(this.state.filteredRows, mode, this.state.currency);
+        localStorage.setItem('mode', mode);
         this.setState({ rows, mode });
     };
 
@@ -71,6 +72,10 @@ class PageLayout extends React.Component {
     }
 
     componentDidMount() {
+        const prefMode = localStorage.getItem('mode');
+        if (prefMode !== null) {
+            this.setState({ mode: prefMode });
+        }
         this.getTableRows();
     }
 
