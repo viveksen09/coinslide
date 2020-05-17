@@ -51,7 +51,7 @@ class Accordion extends React.Component {
                                     <ModeSelector mode={this.state.mode} onModeChanged={this.onModeChanged} />
                                 </div>
                                 <div className="column">
-                                    <CurrencySelector currencies={this.state.currencies} onCurrencySelected={this.onCurrencySelected} />
+                                    <CurrencySelector onCurrencySelected={this.onCurrencySelected} />
                                 </div>
                             </div>
                         </div>
