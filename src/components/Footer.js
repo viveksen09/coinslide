@@ -6,8 +6,7 @@ class Footer extends React.Component {
         return (
             <div className="footer">
                 Powered by
-                <a href="https://www.coingecko.com"> coingecko </a>
-                apis
+                <a style={{color: '#fab50a' }} href="https://www.coingecko.com"> CoinGecko </a>
             </div>
         );
     }

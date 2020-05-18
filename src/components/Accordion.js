@@ -5,7 +5,7 @@ import ModeSelector from './ModeSelector';
 
 class Accordion extends React.Component {
 
-    state = { selection: '' , currencies: [], mode: this.props.mode };
+    state = { selection: '' , mode: this.props.mode, currency: this.props.currency };
 
     onModeChanged = (mode) => {
         this.setState({ mode });
@@ -25,38 +25,34 @@ class Accordion extends React.Component {
     };
 
     componentWillReceiveProps(props) {
-        if (this.state.currencies.length === 0 && props.response != null ) {
-            this.setState({ currencies: props.response.data[0].market_data.current_price });
-        }
+        this.setState({ mode: props.mode, currency: props.currency });
     }
 
     render() {
         return(
             <div>
-                {/* <div className="ui inverted segment"> */}
-                    <div className="ui inverted accordion">
-                        <div className={`${this.state.selection} title`} onClick={(e) => {this.onAccordionClick(e)}} >
-                            <i className="cogs icon"></i>
-                            <i className="dropdown icon"></i>
-                        </div>
-                        <div className={`${this.state.selection} content`}>
-                            <div className="ui six column grid">
-                                <div className="row">
-                                    <div className="column blank"></div>
-                                    <div className="column blank"></div>
-                                    <div className="column blank"></div>
-                                    <div className="column blank"></div>
-                                    <div className="column mode">
-                                        <ModeSelector mode={this.state.mode} onModeChanged={this.onModeChanged} />
-                                    </div>
-                                    <div className="column">
-                                        <CurrencySelector currencies={this.state.currencies} onCurrencySelected={this.onCurrencySelected} />
-                                    </div>
+                <div className="ui inverted accordion">
+                    <div className={`${this.state.selection} title`} onClick={(e) => { this.onAccordionClick(e) }} >
+                        <i className="cogs icon"></i>
+                        <i className="dropdown icon"></i>
+                    </div>
+                    <div className={`${this.state.selection} content`}>
+                        <div className="ui six column grid">
+                            <div className="row">
+                                <div className="column blank"></div>
+                                <div className="column blank"></div>
+                                <div className="column blank"></div>
+                                <div className="column blank"></div>
+                                <div className="column mode">
+                                    <ModeSelector mode={this.state.mode} onModeChanged={this.onModeChanged} />
+                                </div>
+                                <div className="column">
+                                    <CurrencySelector currency={this.state.currency} onCurrencySelected={this.onCurrencySelected} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                {/* </div> */}
+                </div>
             </div>
         );
     }
