@@ -5,7 +5,7 @@ import ModeSelector from './ModeSelector';
 
 class Accordion extends React.Component {
 
-    state = { selection: '' , currencies: [], mode: this.props.mode, currency: this.props.currency };
+    state = { selection: '' , mode: this.props.mode, currency: this.props.currency };
 
     onModeChanged = (mode) => {
         this.setState({ mode });
@@ -25,11 +25,7 @@ class Accordion extends React.Component {
     };
 
     componentWillReceiveProps(props) {
-        if (this.state.currencies.length === 0 && props.response != null ) {
-            this.setState({ currencies: props.response.data[0].market_data.current_price });
-        }
         this.setState({ mode: props.mode, currency: props.currency });
-
     }
 
     render() {

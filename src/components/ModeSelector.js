@@ -29,7 +29,7 @@ class ModeSelector extends React.Component {
             <div>
                 <div className="ui checkbox">
                     <input type="checkbox" checked={this.state.checked} name="public" onChange={(e) => this.onModeSelected(e, this.state.mode)}/>
-                    <label style={{ color: 'gold'}}>Day</label>
+                    <label style={{ color: '#fab50a'}}>Lights ON</label>
                 </div>
             </div>
         );
