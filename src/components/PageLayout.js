@@ -40,6 +40,7 @@ class PageLayout extends React.Component {
     };
 
     onCurrencySelected = (currency) => {
+        localStorage.setItem('currency', currency);
         if (currency !== this.state.currency) {
             if (this.state.term !== '') {
                 const rows = this.buildTableRows(this.state.filteredRows, this.state.mode, currency);
@@ -73,8 +74,12 @@ class PageLayout extends React.Component {
 
     componentDidMount() {
         const prefMode = localStorage.getItem('mode');
+        const prefCurr = localStorage.getItem('currency');
         if (prefMode !== null) {
             this.setState({ mode: prefMode });
+        }
+        if (prefCurr != null) {
+            this.setState({ currency: prefCurr });
         }
         this.getTableRows();
     }
@@ -86,7 +91,7 @@ class PageLayout extends React.Component {
                     <SearchBar onSearch={this.onCommencingSearch}/>
                 </div>
                 <div className="accordion-layout">
-                    <Accordion response={this.state.response} mode={this.state.mode} onCurrencySelect={this.onCurrencySelected} onModeChange={this.onModeChange} />
+                    <Accordion response={this.state.response} mode={this.state.mode} currency={this.state.currency} onCurrencySelect={this.onCurrencySelected} onModeChange={this.onModeChange} />
                 </div>
                 <InfoTable mode={this.state.mode} rows={this.state.rows} lightRows={this.state.lightRows} response={this.state.response} />
                 <Footer />

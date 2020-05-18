@@ -2,7 +2,7 @@ import React from 'react';
 
 class CurrencySelector extends React.Component {
 
-    state = { currencies: [], optionList: [] , selectedCurrency: 'usd', showMenu: ''}
+    state = { currencies: [], optionList: [] , selectedCurrency: this.props.currency, showMenu: ''}
 
     onCurrencySelect = (e, symbol) => {
         this.props.onCurrencySelected(symbol);
@@ -17,6 +17,12 @@ class CurrencySelector extends React.Component {
         }
     }
 
+    componentWillReceiveProps(props) {
+        if (props.currency !== this.state.selectedCurrency) {
+            this.setState({ selectedCurrency: props.currency});
+        }
+    }
+
     render() {
         var transition = 'transition hidden';
         var buttonState = '';
@@ -28,7 +34,7 @@ class CurrencySelector extends React.Component {
         }
         return (            
             <div className="ui yellow buttons">
-                <div className="ui button"> Currency - {this.state.selectedCurrency.toUpperCase()} </div>
+                <div className="ui button"> Price in {this.state.selectedCurrency.toUpperCase()} </div>
                 <div className={`ui floating dropdown icon button ${buttonState}`} onClick={(e) => this.onDropDownClick(e)}>
                     <i className="dropdown icon"></i>
                     <div className={`menu ${transition}`} style={blockStyle}>
