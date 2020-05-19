@@ -5,6 +5,7 @@ import InfoTable from './InfoTable';
 import Footer from './Footer';
 import TableRow from './TableRow';
 import Accordion from './Accordion';
+import PaginationBar from './PaginationBar';
 
 import  coingecko from '../api/coingecko';
 
@@ -94,6 +95,7 @@ class PageLayout extends React.Component {
                     <Accordion mode={this.state.mode} currency={this.state.currency} onCurrencySelect={this.onCurrencySelected} onModeChange={this.onModeChange} />
                 </div>
                 <InfoTable mode={this.state.mode} rows={this.state.rows} lightRows={this.state.lightRows} response={this.state.response} />
+                <PaginationBar />
                 <Footer />
             </div>
         );
