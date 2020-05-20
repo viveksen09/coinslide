@@ -5,10 +5,15 @@ class PaginationBar extends React.Component {
 
     state = { page: 1 }
 
+    onPageSelected = (page) => {
+        this.props.onPageChange(page);
+    }
+
     onNextClick = (event) => {
         var page = this.state.page;
         page = page + 1;
         this.setState({ page });
+        this.onPageSelected(page);
     }
 
     onPrevClick = (event) => {
@@ -16,6 +21,7 @@ class PaginationBar extends React.Component {
         if (page > 1) {
             page = page - 1;
             this.setState({ page });
+            this.onPageSelected(page);
         }
     }
 

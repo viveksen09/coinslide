@@ -11,7 +11,7 @@ import  coingecko from '../api/coingecko';
 
 class PageLayout extends React.Component {
 
-    state = {term: '', mode: 'dark', response: null, rows: [], filteredRows: [], lightRows: [], currency: 'usd'};
+    state = {term: '', mode: 'dark', response: null, rows: [], filteredRows: [], lightRows: [], currency: 'usd', page: 1};
 
     filterRows = (term) => {
         const newRows = [];
@@ -55,8 +55,13 @@ class PageLayout extends React.Component {
         }
     }
 
-    getTableRows = async () => {
-        const response = await coingecko.get('/coins');
+    onPageChange = (page) => {
+        this.getTableRows(page);
+        this.setState({ page });
+    }
+
+    getTableRows = async (page) => {
+        const response = await coingecko.get('/coins?page=' + page);
         //TODO: Remove the console log.
         console.log(response);
         const rows = this.buildTableRows(response.data, this.state.mode, this.state.currency);
@@ -82,7 +87,7 @@ class PageLayout extends React.Component {
         if (prefCurr != null) {
             this.setState({ currency: prefCurr });
         }
-        this.getTableRows();
+        this.getTableRows(this.state.page);
     }
 
     render() {
@@ -95,7 +100,7 @@ class PageLayout extends React.Component {
                     <Accordion mode={this.state.mode} currency={this.state.currency} onCurrencySelect={this.onCurrencySelected} onModeChange={this.onModeChange} />
                 </div>
                 <InfoTable mode={this.state.mode} rows={this.state.rows} lightRows={this.state.lightRows} response={this.state.response} />
-                <PaginationBar />
+                <PaginationBar onPageChange={this.onPageChange} />
                 <Footer />
             </div>
         );
