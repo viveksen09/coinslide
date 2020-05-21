@@ -3,7 +3,7 @@ import React from 'react';
 
 class PaginationBar extends React.Component {
 
-    state = { page: 1 }
+    state = { page: 1, leftBtn: 'disabled', rightBtn: '' }
 
     onPageSelected = (page) => {
         this.props.onPageChange(page);
@@ -12,7 +12,7 @@ class PaginationBar extends React.Component {
     onNextClick = (event) => {
         var page = this.state.page;
         page = page + 1;
-        this.setState({ page });
+        this.setState({ page, leftBtn: '' });
         this.onPageSelected(page);
     }
 
@@ -23,22 +23,29 @@ class PaginationBar extends React.Component {
             this.setState({ page });
             this.onPageSelected(page);
         }
+        if (page === 1) {
+            this.setState({ leftBtn: 'disabled' });
+        }
     }
 
     render() {
         return (
             <div className="pagination">
-                <div className="ui six column grid">
+                <div className="ui four column grid">
                     <div className="row">
                         <div className="column blank"></div>
                         <div className="column blank"></div>
                         <div className="column blank"></div>
-                        <div className="column blank"></div>
-                        <div className="column blank"></div>
                         <div className="column mode">
-                            <i className="arrow circle left icon large" onClick={(e) => this.onPrevClick(e)}></i>
-                            <a className="ui yellow circular label" href=".">{this.state.page}</a>
-                            <i className="arrow circle right icon large" onClick={(e) => this.onNextClick(e)}></i>
+                            <button className="ui tiny yellow button" disabled={this.state.leftBtn} onClick={(e) => this.onPrevClick(e)}>
+                                <i className="arrow left icon"></i>
+                            </button>
+                            <button className="ui tiny yellow button">
+                                {this.state.page}
+                            </button>
+                            <button className="ui tiny yellow button" onClick={(e) => this.onNextClick(e)}>
+                                <i className="arrow right icon"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
