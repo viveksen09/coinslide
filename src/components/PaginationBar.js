@@ -3,7 +3,7 @@ import React from 'react';
 
 class PaginationBar extends React.Component {
 
-    state = { page: 1, leftBtn: 'disabled', rightBtn: '' }
+    state = { page: 1, maxPage: 10, leftBtn: 'disabled', rightBtn: '' }
 
     onPageSelected = (page) => {
         this.props.onPageChange(page);
@@ -14,13 +14,16 @@ class PaginationBar extends React.Component {
         page = page + 1;
         this.setState({ page, leftBtn: '' });
         this.onPageSelected(page);
+        if (page === this.state.maxPage) {
+            this.setState({ rightBtn: 'disabled' });
+        }
     }
 
     onPrevClick = (event) => {
         var page = this.state.page;
         if (page > 1) {
             page = page - 1;
-            this.setState({ page });
+            this.setState({ page, rightBtn: '' });
             this.onPageSelected(page);
         }
         if (page === 1) {
@@ -43,7 +46,7 @@ class PaginationBar extends React.Component {
                             <button className="ui tiny yellow button">
                                 {this.state.page}
                             </button>
-                            <button className="ui tiny yellow button" onClick={(e) => this.onNextClick(e)}>
+                            <button className="ui tiny yellow button" disabled={this.state.rightBtn} onClick={(e) => this.onNextClick(e)}>
                                 <i className="arrow right icon"></i>
                             </button>
                         </div>
