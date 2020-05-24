@@ -34,8 +34,9 @@ class PaginationBar extends React.Component {
     render() {
         return (
             <div className="pagination">
-                <div className="ui four column grid">
+                <div className="ui five column grid">
                     <div className="row">
+                        <div className="column blank"></div>
                         <div className="column blank"></div>
                         <div className="column blank"></div>
                         <div className="column blank"></div>
