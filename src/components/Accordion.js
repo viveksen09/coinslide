@@ -37,16 +37,12 @@ class Accordion extends React.Component {
                         <i className="dropdown icon"></i>
                     </div>
                     <div className={`${this.state.selection} content`}>
-                        <div className="ui six column grid">
+                        <div className="ui two column grid">
                             <div className="row">
-                                <div className="column blank"></div>
-                                <div className="column blank"></div>
-                                <div className="column blank"></div>
-                                <div className="column blank"></div>
                                 <div className="column mode">
                                     <ModeSelector mode={this.state.mode} onModeChanged={this.onModeChanged} />
                                 </div>
-                                <div className="column">
+                                <div className="column" style={{paddingRight: '40px'}}>
                                     <CurrencySelector currency={this.state.currency} onCurrencySelected={this.onCurrencySelected} />
                                 </div>
                             </div>
