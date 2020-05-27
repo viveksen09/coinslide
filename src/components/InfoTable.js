@@ -14,7 +14,7 @@ const infoTableConfig = {
 
 class InfoTable extends React.Component {
 
-    state = { allRows: [], allLightRows: [], rows: [], mode: this.props.mode, firstRendering: true }
+    state = { allRows: [], allLightRows: [], rows: [], mode: this.props.mode, showLoader: true, page: 1 }
 
     getTableClassName(mode) {
         if (mode === 'dark') {
@@ -24,10 +24,14 @@ class InfoTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+        if (props.page !== this.state.page) {
+            this.setState({ page: props.page, showLoader: true });
+            return;
+        }
         if (this.state.allRows.length === 0) {
             this.setState({ allRows: this.props.rows, allLightRows: this.props.lightRows });
         }
-        this.setState({ mode: props.mode, rows: props.rows, firstRendering: false });
+        this.setState({ mode: props.mode, rows: props.rows, showLoader: false });
     }
 
 
@@ -80,7 +84,7 @@ class InfoTable extends React.Component {
     }
 
     renderContent(table, rowsToRender) {
-        if (this.state.firstRendering) {
+        if (this.state.showLoader) {
             return this.getLoadingJsxContent(table);
         }
         return this.getLoadedJsxContent(table, rowsToRender);

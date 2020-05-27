@@ -2,8 +2,8 @@ import React from 'react';
 
 const Logo = () => {
     return (
-        <div>
-            <img src={require('../images/logo.png')} alt='company logo' style={{width: '200px' }}/>
+        <div style={{ width: '100%'}}>
+            <img src="/logo.png" alt='company logo' style={{width: '90%', paddingTop: '10px' }}/>
         </div>
     );
 };
